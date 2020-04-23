@@ -53,11 +53,12 @@ m_servo5 = 1;
 m_gripper = 1;
 
 % Calculate each link's center of mass
-CoM_1 = calc_link_CoM(m_link1, m_servo2, d1, 0);
-CoM_2 = calc_link_CoM(m_link2, m_servo3, a2, 0);
-CoM_3 = calc_link_CoM(m_link3, m_servo4, a3, 0);
-CoM_4 = calc_link_CoM(m_link4, m_servo5, d4, 0);
-CoM_5 = calc_link_CoM(m_link5, m_gripper, d5, lg);
+CoM_1 = calc_link_CoM(m_link1, m_servo2, d1);
+CoM_2 = calc_link_CoM(m_link2, m_servo3, a2);
+CoM_3 = calc_link_CoM(m_link3, m_servo4, a3);
+CoM_4 = calc_link_CoM(m_link4, m_servo5, d4);
+CoM_5 = calc_wrist_CoM(m_link4, m_servo5, m_link5, m_gripper,...
+                                d4, 0, (d5 - d4), lg);
 
 % Create homogeneous transforms from the DH parameters
 A1 = homogeneous_transform(0, d1, -pi/2, theta1);
