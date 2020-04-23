@@ -17,6 +17,10 @@ if lynx.pwm_check
     q = lynxPWM(lynx, q);
 end
 
+if lynx.inertia_check
+    q = lynxInertia(lynx, q); 
+end
+
 calculateFK = str2func(['calculateFK_',pennkeys]);
 [jointPositions,T0e] = calculateFK(q);
 

@@ -59,6 +59,7 @@ lynx.showShadow = true;
 lynx.showGripper = false;
 lynx.hardware_on = false;
 lynx.pwm_check = true; 
+lynx.inertia_check = true; 
 
 % Home pose
 lynx.q = [0,0,0,0,0,0];
