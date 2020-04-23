@@ -13,6 +13,10 @@ axisWidth = 2;
 gripperLineWidth = 3;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+if lynx.pwm_check 
+    q = lynxPWM(lynx, q);
+end
+
 calculateFK = str2func(['calculateFK_',pennkeys]);
 [jointPositions,T0e] = calculateFK(q);
 

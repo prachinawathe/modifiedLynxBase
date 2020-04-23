@@ -58,6 +58,7 @@ lynx.showJoints = true;
 lynx.showShadow = true;
 lynx.showGripper = false;
 lynx.hardware_on = false;
+lynx.pwm_check = true; 
 
 % Home pose
 lynx.q = [0,0,0,0,0,0];
@@ -83,6 +84,12 @@ for j = 1:2:size(varargin,2)
 
             lynx.hardware_on = true;
             lynx.param = jsobj.(hardware_config);
+        elseif strcmpi(hardware_config, 'Sim')
+            
+            lynx.hardware_on = false; 
+            lynx.param = jsobj.('Simulation');
+            lynx.robot = load('robot.mat');
+        
         else
             error('Invalid value for Hardware property');
         end
