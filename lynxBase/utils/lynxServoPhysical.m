@@ -1,4 +1,4 @@
-function [] = lynxServoPhysical(th1, th2, th3, th4, th5, grip)
+ function [] = lynxServoPhysical(th1, th2, th3, th4, th5, grip)
 % Commands the real Lynx robot to the angles defined by the input (in radians and mm)
 % Has the same limits as lynxServo.m.
 
