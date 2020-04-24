@@ -1,4 +1,4 @@
-nbbbbbbbbbeeeeeeeeeeeeeeeeeeeeeeeeeevb rd                                                                                                                        function tau = gravity_to_torque(q, robot)
+function tau = gravity_to_torque(q, robot)
 %gravity_to_torque  Calculates how the force of gravity on the robot
 %                   translates to a torque
 %   Calculates the linear Jacobian at the center of mass of the first 
