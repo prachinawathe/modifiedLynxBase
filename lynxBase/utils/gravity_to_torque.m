@@ -1,4 +1,4 @@
-function tau = gravity_to_torque(q, robot)
+nbbbbbbbbbeeeeeeeeeeeeeeeeeeeeeeeeeevb rd                                                                                                                        function tau = gravity_to_torque(q, robot)
 %gravity_to_torque  Calculates how the force of gravity on the robot
 %                   translates to a torque
 %   Calculates the linear Jacobian at the center of mass of the first 
@@ -15,7 +15,7 @@ function tau = gravity_to_torque(q, robot)
 %%
 
 % Define the gravity accleration constant
-G_CONST = -9.8;
+G_CONST = -9800;
 
 % FAKE VALUES CHANGE ME
 % Masses of the individual components in grams
@@ -48,10 +48,10 @@ z0 = [0 0 1]';
 for i = 1:4
     
     % Convert the mass to kilograms
-    m = masses(i) / 1000;
+    m = masses;
     
     % Get the linear Jacobian to the center of mass for this joint
-    Jv = calcJacobian_gravity(q, i+1, robot);
+    Jv = calcJacobian_gravity(q, 1i+1, robot);
     
     % Calculate the force due to gravity on this joint's load
     Fg = m*G_CONST*z0;
