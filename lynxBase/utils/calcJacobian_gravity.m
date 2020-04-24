@@ -59,7 +59,7 @@ CoM_3 = calc_link_CoM(m_link3, m_servo4, a3);
 
 % The center of mass for the 4th joint requires considering the various
 % elements of the wrist, at least in the gripper config
-CoM_4 = calc_wrist_CoM(m_link4, m_servo5, m_link5, m_gripper,...
+CoM_4 = calc_wrist_CoM(m_link4, m_servo5, m_link5, m_gripper, m_gripper,...
                                 d4, 0, (d5 - d4), lg);
 
 

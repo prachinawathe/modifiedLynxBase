@@ -1,4 +1,5 @@
-function c_wrist = calc_wrist_CoM(m_link1, m_servo, m_link2, m_gripper,...
+function c_wrist = calc_wrist_CoM(m_link1, m_servo, m_link2, ...
+                                m_gripper_servo, m_gripper_link,...
                                 d_link1, d_servo, d_link2, d_gripper)
 %calc_link_CoM Calculates the center of mass of a specific multi-joint link.
 %   This function assumes that the robot is equipped with a gripper as its
@@ -11,7 +12,8 @@ function c_wrist = calc_wrist_CoM(m_link1, m_servo, m_link2, m_gripper,...
 %       m_link1 - The mass of the link between joints 4 and 5
 %       m_servo - The mass of the servo for joint 5
 %       m_link2 - The mass between joint 5 and the gripper
-%       m_gripper - The mass of the gripper
+%       m_gripper_servo - The mass of the gripper servo
+%       m_gripper_link - The mass of the gripper's fans
 %       d_link1 - The length of the rod between joints 4 and 5
 %       d_servo - The length of the servo for joint 5 (can be 0)
 %       d_link2 - The length of the rod between joint 5 and the gripper
@@ -24,8 +26,10 @@ function c_wrist = calc_wrist_CoM(m_link1, m_servo, m_link2, m_gripper,...
 c_link1 = d_link1 / 2;
 c_servo = d_link1 + (d_servo/2);
 c_link2 = d_link1 + d_servo + (d_link2/2);
-c_grip = d_link1 + d_servo + d_link2 + (d_gripper/2);
+c_grip = d_link1 + d_servo + d_link2;
+c_grip_link = d_link1 + d_servo + d_link2 + (d_gripper/2);
 c_wrist = (c_link1*m_link1 + c_servo*m_servo + c_link2+m_link2 ...
-           + c_grip*m_gripper) / (m_link1 + m_servo + m_link2 + m_gripper);
+           + c_grip*m_gripper_servo + c_grip_link*m_gripper_link)...
+           / (m_link1 + m_servo + m_link2 + m_gripper_servo + m_gripper_link);
 end
 
