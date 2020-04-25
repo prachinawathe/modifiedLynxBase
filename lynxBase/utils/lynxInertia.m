@@ -48,7 +48,9 @@ link_com = link_com(2:end, :);
 [m,n] = size(joint_pos);
 
 r_sq = joint_pos(2:m,1).^2 + joint_pos(2:m,2).^2;
-I(1) = I(1) + robot.joint_masses(2:m) * r_sq; 
+I(1) = I(1) + robot.joint_masses(1) * 15^2 + ...
+    robot.joint_masses(2:m) * r_sq; 
+
 
 % convert link_com to radius 
 
@@ -68,6 +70,11 @@ for i=2:4
 end
 
 I(5) = I(5) + robot.joint_masses(6) * 5^2; 
-I(5) = I(5) + robot.link_weights(6) * 10^2 
+I(5) = I(5) + robot.link_weights(6) * 10^2;
+
+
+
+
+% modify q here with J and F
 
 end
