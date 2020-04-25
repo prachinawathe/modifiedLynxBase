@@ -1,5 +1,5 @@
 function J = calcJacobian_gravity(q, joint, robot)
-% CALCJACOBIAN_CoM Calculate the Jacobian of a particular joint of the 
+% CALCJACOBIAN_gravity Calculate the Jacobian of a particular joint of the
 %   robot in a given configuration specifically to calculate the
 %   gravitational forces on the first 4 joints
 %
@@ -107,7 +107,7 @@ J = zeros(6,joint-1);
 if (joint == 2)
     Jv_1 = cross(z0, c1-o0);
     Jw = z0;
-    J = Jv_1; 
+    J = Jv_1;
   return
 end
 

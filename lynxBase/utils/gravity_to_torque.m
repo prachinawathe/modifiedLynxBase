@@ -1,8 +1,8 @@
 function tau = gravity_to_torque(q, robot)
 %gravity_to_torque  Calculates how the force of gravity on the robot
 %                   translates to a torque
-%   Calculates the linear Jacobian at the center of mass of the first 
-%   4 joints (Joint 5 and the gripper are not subject to gravity), then 
+%   Calculates the linear Jacobian at the center of mass of the first
+%   4 joints (Joint 5 and the gripper are not subject to gravity), then
 %   multipies the transpose of that Jacobian by the force of gravity acting
 %   on each joint. The sum of all J^T*m*g*z_0 is the the effect gravity has
 %   on all of the joint torques.
@@ -10,7 +10,7 @@ function tau = gravity_to_torque(q, robot)
 %       q - A 1x6 vector containing the robot joint configuration
 %       robot - Stored robot variables
 %   OUTPUTS:
-%       tau - A 1x6 vector containing the torque changes on the robot 
+%       tau - A 1x6 vector containing the torque changes on the robot
 %               joints due to gravity
 %%
 
@@ -34,10 +34,10 @@ z0 = [0 0 1]';
 
 % There are 4 joints to consider
 for i = 1:4
-    
+
     % Get the linear Jacobian to the center of mass for this joint
     Jv = calcJacobian_gravity(q, i+1, robot);
-    
+
     % Calculate the torque due to this link and add to total
     % There is no multiplication by g const because we have weights, not
     % masses

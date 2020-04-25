@@ -1,5 +1,5 @@
 function J = calcJacobian_CoM(q, joint, robot)
-% CALCJACOBIAN_CoM Calculate the Jacobian of a particular joint of the 
+% CALCJACOBIAN_CoM Calculate the Jacobian of a particular joint of the
 %   robot in a given configuration while considering the center of mass of
 %   each link.
 %
@@ -117,7 +117,7 @@ J = zeros(6,joint-1);
 if (joint == 2)
     Jv_1 = cross(z0, c1-o0);
     Jw = z0;
-    J = [Jv_1; 
+    J = [Jv_1;
         Jw];
   return
 end
@@ -127,7 +127,7 @@ if (joint == 3)
     Jv_1 = cross(z0, c2-o0);
     Jv_2 = cross(z1, c2-o1);
     Jw = [z0 T_01(1:3,3)];
-    J = [Jv_1 Jv_2; 
+    J = [Jv_1 Jv_2;
         Jw];
   return
 end
@@ -138,7 +138,7 @@ if (joint == 4)
     Jv_2 = cross(z1, c3-o1);
     Jv_3 = cross(z2, c3-o2);
     Jw = [z0 T_01(1:3,3) T_02(1:3,3)];
-    J = [Jv_1 Jv_2 Jv_3; 
+    J = [Jv_1 Jv_2 Jv_3;
         Jw];
   return
 end
@@ -150,7 +150,7 @@ if (joint == 5)
     Jv_3 = cross(z2, c4-o2);
     Jv_4 = cross(z3, c4-o3);
     Jw = [z0 T_01(1:3,3) T_02(1:3,3) T_03(1:3,3)];
-    J = [Jv_1 Jv_2 Jv_3 Jv_4; 
+    J = [Jv_1 Jv_2 Jv_3 Jv_4;
         Jw];
   return
 end
@@ -163,7 +163,7 @@ if (joint == 6)
     Jv_4 = cross(z3, c5-o3);
     Jv_5 = cross(z4, c5-o4);
     Jw = [z0 T_01(1:3,3) T_02(1:3,3) T_03(1:3,3) T_04(1:3,3)];
-    J = [Jv_1 Jv_2 Jv_3 Jv_4 Jv_5; 
+    J = [Jv_1 Jv_2 Jv_3 Jv_4 Jv_5;
         Jw];
   return
 end

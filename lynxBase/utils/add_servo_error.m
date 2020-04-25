@@ -1,11 +1,11 @@
 function q_new = add_servo_error(q, robot)
 % add_servo_error - Add in slight error to the input configuration
 %       This function adds some small angular error to each joint based on
-%       the dead space for each joint's servo and how far each servo moves 
+%       the dead space for each joint's servo and how far each servo moves
 %       per us added to the PWM signal.
 % INPUTS:
 %   q - A 1x6 vector containing the robot's desired configuration
-%   robot - A struct containing information about the robot's physical 
+%   robot - A struct containing information about the robot's physical
 %           properties
 % OUTPUTS:
 %   q_new - The configuration after some servo error is added

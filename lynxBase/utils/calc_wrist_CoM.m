@@ -1,13 +1,13 @@
 function c_wrist = calc_wrist_CoM(m_link1, m_servo, m_link2, ...
                                 m_gripper_servo, m_gripper_link,...
                                 d_link1, d_servo, d_link2, d_gripper)
-%calc_link_CoM Calculates the center of mass of a specific multi-joint link.
+%calc_wrist_CoM Calculates the center of mass of a specific multi-joint link.
 %   This function assumes that the robot is equipped with a gripper as its
 %   6th joint and that only the first joint in the wrist will need to
 %   compensate for a force on its center of mass. It models each servo as a
 %   point mass and each link as a rod of uniform density. The gripper is
 %   assumed to have a center of mass in the center of its length.
-%   
+%
 %   INPUTS:
 %       m_link1 - The mass of the link between joints 4 and 5
 %       m_servo - The mass of the servo for joint 5
@@ -20,7 +20,7 @@ function c_wrist = calc_wrist_CoM(m_link1, m_servo, m_link2, ...
 %       d_gripper - The length of the gripper
 %   OUTPUTS:
 %       c_wrist - The center of mass of the linkage. Note that this is a
-%                scalar value and will have to be rotated and translated 
+%                scalar value and will have to be rotated and translated
 %                appropriately depending on its position in the robot arm.
 %%
 c_link1 = d_link1 / 2;
