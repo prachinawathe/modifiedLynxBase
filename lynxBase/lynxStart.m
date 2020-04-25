@@ -90,7 +90,7 @@ for j = 1:2:size(varargin,2)
             lynx.hardware_on = false; 
             lynx.param = jsobj.('Simulation');
             lynx.robot = load('robot.mat');
-        
+            lynx.robot = lynx.robot.robot; 
         else
             error('Invalid value for Hardware property');
         end
