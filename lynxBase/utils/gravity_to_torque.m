@@ -1,4 +1,4 @@
-function tau = gravity_to_torque(q, robot)
+function tau = gravity_to_torque(q, lynx)
 %gravity_to_torque  Calculates how the force of gravity on the robot
 %                   translates to a torque
 %   Calculates the linear Jacobian at the center of mass of the first
@@ -13,11 +13,11 @@ function tau = gravity_to_torque(q, robot)
 %       tau - A 1x6 vector containing the torque changes on the robot
 %               joints due to gravity
 %%
-
+robot = lynx.robot; 
 
 % Weights of the individual components in grams
 link_weights = robot.link_weights;
-joint_weights = robot.joint_weights;
+joint_weights = robot.joint_masses;
 
 % Calculate the weights seen by each joint for a given Jacobian calculation
 w_joint1 = link_weights(1) + joint_weights(2);

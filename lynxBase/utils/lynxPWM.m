@@ -16,7 +16,7 @@ deg_per_us = [.102, .105, .109, .100, .105, .104];
 % *8 comes from deadspace
 min_diff_rad = (deg_per_us * 2 * pi / 360) * 8;
 
-q_diff = q-q_prev; 
+q_diff = abs(q-q_prev); 
 
 q(q_diff < min_diff_rad) = q_prev(q_diff < min_diff_rad); 
 

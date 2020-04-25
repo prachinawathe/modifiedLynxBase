@@ -39,7 +39,7 @@ d4 = robot.d4;
 d5 = robot.d5;
 lg = robot.lg;
 link_weights = robot.link_weights;
-joint_weights = robot.joint_weights;
+joint_weights = robot.joint_masses;
 
 % Calculate each link's center of mass
 CoM_1 = calc_link_CoM(link_weights(1), joint_weights(2), d1);

@@ -17,8 +17,9 @@ if lynx.pwm_check
     q = lynxPWM(lynx, q);
 end
 
-if lynx.inertia_check
-    q = lynxInertia(lynx, q); 
+if lynx.has_gravity
+    tau = gravity_to_torque(q, lynx);
+    q = lynxAddGravity(lynx, q, tau) 
 end
 
 calculateFK = str2func(['calculateFK_',pennkeys]);

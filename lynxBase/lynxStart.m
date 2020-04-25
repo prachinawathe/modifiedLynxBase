@@ -40,7 +40,7 @@ global lynx pennkeys
 addpath('utils')
 
 %%SET THIS
-pennkeys = 'groupno';
+pennkeys = '17';
 
 robot_spec_file = 'utils/robot_specs.json';
 
@@ -59,10 +59,11 @@ lynx.showShadow = true;
 lynx.showGripper = false;
 lynx.hardware_on = false;
 lynx.pwm_check = true; 
-lynx.inertia_check = true; 
+lynx.has_gravity = true; 
 
 % Home pose
-lynx.q = [0,0,0,0,0,0];
+% lynx.q = [0,0,0,0,0,0];
+lynx.q = [-1.2220,0.6570,-1.1157,-0.0650,1.0442,0];
 
 % Check property inputs is even (each property must be paired with a value)
 if mod(size(varargin,2), 2) == 1
@@ -90,7 +91,7 @@ for j = 1:2:size(varargin,2)
             lynx.hardware_on = false; 
             lynx.param = jsobj.('Simulation');
             lynx.robot = load('robot.mat');
-            lynx.robot = lynx.robot.robot; 
+%             lynx.robot = lynx.robot.robot; 
         else
             error('Invalid value for Hardware property');
         end
