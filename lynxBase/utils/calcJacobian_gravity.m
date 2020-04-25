@@ -38,28 +38,17 @@ a3 = robot.a3;
 d4 = robot.d4;
 d5 = robot.d5;
 lg = robot.lg;
-
-% REPLACE ME I AM FAKE NUMBERS
-m_link1 = 1;
-m_link2 = 1;
-m_link3 = 1;
-m_link4 = 1;
-m_link5 = 1;
-m_servo1 = 1;
-m_servo2 = 1;
-m_servo3 = 1;
-m_servo4 = 1;
-m_servo5 = 1;
-m_gripper = 1;
+link_weights = robot.link_weights;
+joint_weights = robot.joint_weights;
 
 % Calculate each link's center of mass
-CoM_1 = calc_link_CoM(m_link1, m_servo2, d1);
-CoM_2 = calc_link_CoM(m_link2, m_servo3, a2);
-CoM_3 = calc_link_CoM(m_link3, m_servo4, a3);
+CoM_1 = calc_link_CoM(link_weights(1), joint_weights(2), d1);
+CoM_2 = calc_link_CoM(link_weights(2), joint_weights(3), a2);
+CoM_3 = calc_link_CoM(link_weights(3), joint_weights(4), a3);
 
 % The center of mass for the 4th joint requires considering the various
 % elements of the wrist, at least in the gripper config
-CoM_4 = calc_wrist_CoM(m_link4, m_servo5, m_link5, m_gripper, m_gripper,...
+CoM_4 = calc_wrist_CoM(link_weights(4), joint_weights(5), link_weights(5), joint_weights(6), link_weights(6),...
                                 d4, 0, (d5 - d4), lg);
 
 

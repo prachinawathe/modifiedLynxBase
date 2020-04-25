@@ -12,11 +12,11 @@ function q_new = add_servo_error(q, robot)
 %
 
 % Convert from degrees per us to radians per us
-deg_per_us = [.102, .105, .109, .100, .105, .104];
+deg_per_us = robot.deg_per_us;
 min_diff_rad = deg_per_us * 2 * pi / 360;
 
 % All 6 servo spec sheets had the same deadspace
-deadspace_us = 8;
+deadspace_us = robot.deadspace_us;
 
 % Get the deadspace in radians and then create the upper and lower bounds
 % for the possible configuration

@@ -14,52 +14,35 @@ function tau = gravity_to_torque(q, robot)
 %               joints due to gravity
 %%
 
-% Define the gravity accleration constant
-G_CONST = -9800;
 
-% FAKE VALUES CHANGE ME
-% Masses of the individual components in grams
-m_link1 = 1;
-m_link2 = 1;
-m_link3 = 1;
-m_link4 = 1;
-m_link5 = 1;
-m_servo1 = 1;
-m_servo2 = 1;
-m_servo3 = 1;
-m_servo4 = 1;
-m_servo5 = 1;
-m_gripper = 1;
+% Weights of the individual components in grams
+link_weights = robot.link_weights;
+joint_weights = robot.joint_weights;
 
-% Calculate the masses seen by each joint for a given Jacobian calculation
-m_joint1 = m_link1 + m_servo2;
-m_joint2 = m_link2 + m_servo3;
-m_joint3 = m_link3 + m_servo4;
+% Calculate the weights seen by each joint for a given Jacobian calculation
+w_joint1 = link_weights(1) + joint_weights(2);
+w_joint2 = link_weights(2) + joint_weights(3);
+w_joint3 = link_weights(3) + joint_weights(4);
 
 % Joint 4 carries the whole wrist
-m_joint4 = m_link4 + m_servo5 + m_link5 + m_gripper;
+w_joint4 = link_weights(4) + joint_weights(5) + link_weights(5) + joint_weights(6) + link_weights(6);
 
 % Make this a vector for ease of summation
-masses = [m_joint1 m_joint2 m_joint3 m_joint4];
+w = [w_joint1 w_joint2 w_joint3 w_joint4];
 tau = zeros(1,6);
 z0 = [0 0 1]';
 
 % There are 4 joints to consider
 for i = 1:4
     
-    % Convert the mass to kilograms
-    m = masses;
-    
     % Get the linear Jacobian to the center of mass for this joint
-    Jv = calcJacobian_gravity(q, 1i+1, robot);
-    
-    % Calculate the force due to gravity on this joint's load
-    Fg = m*G_CONST*z0;
+    Jv = calcJacobian_gravity(q, i+1, robot);
     
     % Calculate the torque due to this link and add to total
-    tau_g = Jv'*Fg;
+    % There is no multiplication by g const because we have weights, not
+    % masses
+    tau_g = Jv'*w(i)*z0;
     tau(1:size(tau_g)) = tau(1:size(tau_g)) + tau_g';
 end
 
 end
-

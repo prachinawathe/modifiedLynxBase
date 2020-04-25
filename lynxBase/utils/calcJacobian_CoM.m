@@ -40,25 +40,19 @@ d5 = robot.d5;
 lg = robot.lg;
 
 % REPLACE ME I AM FAKE NUMBERS
-m_link1 = 1;
-m_link2 = 1;
-m_link3 = 1;
-m_link4 = 1;
-m_link5 = 1;
-m_servo1 = 1;
-m_servo2 = 1;
-m_servo3 = 1;
-m_servo4 = 1;
-m_servo5 = 1;
-m_gripper = 1;
+link_weights = robot.link_weights;
+joint_weights = robot.joint_weights;
 
 % Calculate each link's center of mass
-CoM_1 = calc_link_CoM(m_link1, m_servo2, d1);
-CoM_2 = calc_link_CoM(m_link2, m_servo3, a2);
-CoM_3 = calc_link_CoM(m_link3, m_servo4, a3);
-CoM_4 = calc_link_CoM(m_link4, m_servo5, d4);
-CoM_5 = calc_wrist_CoM(m_link4, m_servo5, m_link5, m_gripper,...
-                                d4, 0, (d5 - d4), lg);
+CoM_1 = calc_link_CoM(link_weights(1), joint_weights(2), d1);
+CoM_2 = calc_link_CoM(link_weights(2), joint_weights(3), a2);
+CoM_3 = calc_link_CoM(link_weights(3), joint_weights(4), a3);
+CoM_4 = calc_link_CoM(link_weights(4), joint_weights(5), d4);
+
+% CoM5 is a special case because of the extra link after the gripper joint
+% Not currently a function which works to calculate it
+%CoM_5 = calc_wrist_CoM(m_link4, m_servo5, m_link5, m_gripper,...
+ %                               d4, 0, (d5 - d4), lg);
 
 % Create homogeneous transforms from the DH parameters
 A1 = homogeneous_transform(0, d1, -pi/2, theta1);
