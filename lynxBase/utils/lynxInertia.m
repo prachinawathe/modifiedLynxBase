@@ -69,6 +69,9 @@ for i=2:4
     I(i) = I(i) + robot.link_weights(i:m) * linksq; 
 end
 
+% this servo is radial, assuming 5mm radius of end eff. servo
+% and 10mm radius of end effector itself
+
 I(5) = I(5) + robot.joint_masses(6) * 5^2; 
 I(5) = I(5) + robot.link_weights(6) * 10^2;
 
