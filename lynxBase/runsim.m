@@ -11,7 +11,7 @@ profile on
 % Define any additional parameters you may need here. Add the parameters to
 % the robot and map structures to pass them to astar or rrt.
 %
-load 'robot.mat' robot
+robot = load('robot.mat')% robot
 
 robot.mrgn = .1; 
 

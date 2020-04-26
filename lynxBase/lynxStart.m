@@ -63,8 +63,8 @@ lynx.has_gravity = true;
 lynx.dt = 1; 
 
 % Home pose
-% lynx.q = [0,0,0,0,0,0];
-lynx.q = [-1.2220,0.6570,-1.1157,-0.0650,1.0442,0];
+lynx.q = [0,0,0,0,0,0];
+% lynx.q = [-1.2220,0.6570,-1.1157,-0.0650,1.0442,0];
 
 % Check property inputs is even (each property must be paired with a value)
 if mod(size(varargin,2), 2) == 1
