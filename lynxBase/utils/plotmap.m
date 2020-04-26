@@ -17,6 +17,9 @@ for i = 1:size(map.obstacles,1)
     Xi = side_length(1)*(X-0.5) + centroid(1);
     Yi = side_length(2)*(Y-0.5) + centroid(2);
     Zi = side_length(3)*(Z-0.5) + centroid(3);
+    subplot(1,2,1);
+    fill3(Xi, Yi, Zi, 'b', 'FaceAlpha', 0.5);
+    subplot(1,2,2);
     fill3(Xi, Yi, Zi, 'b', 'FaceAlpha', 0.5);
 end
 % hold off;

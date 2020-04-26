@@ -93,15 +93,15 @@ if(lynx.firstFrame) %We need to create the plots
     ylim([-400 400]);
     zlim([-200 500]);
 
-    lynx.hLinks = line(jointPositions_g(:,1),jointPositions_g(:,2),jointPositions_g(:,3),'color',[0.2,0.2,0.2],'LineWidth',linkWidth);
+    lynx.hLinks_g = line(jointPositions_g(:,1),jointPositions_g(:,2),jointPositions_g(:,3),'color',[0.2,0.2,0.2],'LineWidth',linkWidth);
     hold on;
 
     if(lynx.showShadow)
-        lynx.hShadow = line(jointPositions_g(:,1),jointPositions_g(:,2),zeros(size(jointPositions_g,1),1),'color',[0.5,0.5,0.5],'LineWidth',shadowWidth);
+        lynx.hShadow_g = line(jointPositions_g(:,1),jointPositions_g(:,2),zeros(size(jointPositions_g,1),1),'color',[0.5,0.5,0.5],'LineWidth',shadowWidth);
     end
 
     if(lynx.showJoints)
-        lynx.hFrameOrigins = scatter3(jointPositions_g(:,1),jointPositions_g(:,2),jointPositions_g(:,3),jointSize,'MarkerEdgeColor','none','MarkerFaceColor',[0,0,0]);
+        lynx.hFrameOrigins_g = scatter3(jointPositions_g(:,1),jointPositions_g(:,2),jointPositions_g(:,3),jointSize,'MarkerEdgeColor','none','MarkerFaceColor',[0,0,0]);
     end
 
     if(lynx.showFrame)
@@ -111,9 +111,10 @@ if(lynx.firstFrame) %We need to create the plots
         EExAxis = frameSize*EExAxis;
         EEyAxis = frameSize*EEyAxis;
         EEzAxis = frameSize*EEzAxis;
-        lynx.hEExAxis = line([T0e_g(1,4),T0e_g(1,4,end)+EExAxis(1)],[T0e_g(2,4,end),T0e_g(2,4,end)+EExAxis(2)],[T0e_g(3,4,end),T0e_g(3,4,end)+EExAxis(3)],'Color','r','LineWidth',axisWidth);
-        lynx.hEEyAxis = line([T0e_g(1,4),T0e_g(1,4,end)+EEyAxis(1)],[T0e_g(2,4,end),T0e_g(2,4,end)+EEyAxis(2)],[T0e_g(3,4,end),T0e_g(3,4,end)+EEyAxis(3)],'Color','g','LineWidth',axisWidth);
-        lynx.hEEzAxis = line([T0e_g(1,4),T0e_g(1,4,end)+EEzAxis(1)],[T0e_g(2,4,end),T0e_g(2,4,end)+EEzAxis(2)],[T0e_g(3,4,end),T0e_g(3,4,end)+EEzAxis(3)],'Color','b','LineWidth',axisWidth);
+        lynx.hEExAxis_g = line([T0e_g(1,4),T0e_g(1,4,end)+EExAxis(1)],[T0e_g(2,4,end),T0e_g(2,4,end)+EExAxis(2)],[T0e_g(3,4,end),T0e_g(3,4,end)+EExAxis(3)],'Color','r','LineWidth',axisWidth);
+        lynx.hEEyAxis_g = line([T0e_g(1,4),T0e_g(1,4,end)+EEyAxis(1)],[T0e_g(2,4,end),T0e_g(2,4,end)+EEyAxis(2)],[T0e_g(3,4,end),T0e_g(3,4,end)+EEyAxis(3)],'Color','g','LineWidth',axisWidth);
+        lynx.hEEzAxis_g = line([T0e_g(1,4),T0e_g(1,4,end)+EEzAxis(1)],[T0e_g(2,4,end),T0e_g(2,4,end)+EEzAxis(2)],[T0e_g(3,4,end),T0e_g(3,4,end)+EEzAxis(3)],'Color','b','LineWidth',axisWidth);
+        
     end
 
     if(lynx.showGripper)
@@ -136,22 +137,15 @@ if(lynx.firstFrame) %We need to create the plots
 else %Plots are already created
     subplot(1,2,1);
     set(lynx.hLinks,'xdata',jointPositions(:,1),'ydata',jointPositions(:,2),'zdata',jointPositions(:,3));
-    subplot(1,2,2);
-    set(lynx.hLinks,'xdata',jointPositions_g(:,1),'ydata',jointPositions_g(:,2),'zdata',jointPositions_g(:,3));
-
     
     if(lynx.showShadow)
         subplot(1,2,1);
         set(lynx.hShadow,'xdata',jointPositions(:,1),'ydata',jointPositions(:,2));
-        subplot(1,2,2);
-        set(lynx.hShadow,'xdata',jointPositions_g(:,1),'ydata',jointPositions_g(:,2));
     end
 
     if(lynx.showJoints)
         subplot(1,2,1); 
         set(lynx.hFrameOrigins,'xdata',jointPositions(:,1),'ydata',jointPositions(:,2),'zdata',jointPositions(:,3));
-        subplot(1,2,2); 
-        set(lynx.hFrameOrigins,'xdata',jointPositions_g(:,1),'ydata',jointPositions_g(:,2),'zdata',jointPositions_g(:,3));
     end
 
     if(lynx.showFrame)
@@ -166,16 +160,7 @@ else %Plots are already created
         set(lynx.hEEyAxis,'xdata',[T0e(1,4,end),T0e(1,4,end)+EEyAxis(1)],'ydata',[T0e(2,4,end),T0e(2,4,end)+EEyAxis(2)],'zdata',[T0e(3,4,end),T0e(3,4,end)+EEyAxis(3)]);
         set(lynx.hEEzAxis,'xdata',[T0e(1,4,end),T0e(1,4,end)+EEzAxis(1)],'ydata',[T0e(2,4,end),T0e(2,4,end)+EEzAxis(2)],'zdata',[T0e(3,4,end),T0e(3,4,end)+EEzAxis(3)]);
     
-        subplot(1,2,2);
-        EExAxis = T0e_g(1:3,1,end)';
-        EEyAxis = T0e_g(1:3,2,end)';
-        EEzAxis = T0e_g(1:3,3,end)';
-        EExAxis = frameSize*EExAxis;
-        EEyAxis = frameSize*EEyAxis;
-        EEzAxis = frameSize*EEzAxis;
-        set(lynx.hEExAxis,'xdata',[T0e_g(1,4,end),T0e_g(1,4,end)+EExAxis(1)],'ydata',[T0e_g(2,4,end),T0e_g(2,4,end)+EExAxis(2)],'zdata',[T0e_g(3,4,end),T0e_g(3,4,end)+EExAxis(3)]);
-        set(lynx.hEEyAxis,'xdata',[T0e_g(1,4,end),T0e_g(1,4,end)+EEyAxis(1)],'ydata',[T0e_g(2,4,end),T0e_g(2,4,end)+EEyAxis(2)],'zdata',[T0e_g(3,4,end),T0e_g(3,4,end)+EEyAxis(3)]);
-        set(lynx.hEEzAxis,'xdata',[T0e_g(1,4,end),T0e_g(1,4,end)+EEzAxis(1)],'ydata',[T0e_g(2,4,end),T0e_g(2,4,end)+EEzAxis(2)],'zdata',[T0e_g(3,4,end),T0e_g(3,4,end)+EEzAxis(3)]);
+        
     end
     
     % assuming that gripper is not shown for the most part 
@@ -190,7 +175,34 @@ else %Plots are already created
         gripperPoints = gripperPoints';
         set(lynx.hGripper,'xdata',gripperPoints(:,1),'ydata',gripperPoints(:,2),'zdata',gripperPoints(:,3));
     end
+    drawnow
+    
+    subplot(1,2,2);
+    set(lynx.hLinks_g,'xdata',jointPositions_g(:,1),'ydata',jointPositions_g(:,2),'zdata',jointPositions_g(:,3));
+    
+    if(lynx.showShadow)
+        subplot(1,2,2);
+        set(lynx.hShadow_g,'xdata',jointPositions_g(:,1),'ydata',jointPositions_g(:,2));
+    end
 
+    if(lynx.showJoints)
+        subplot(1,2,2); 
+        set(lynx.hFrameOrigins_g,'xdata',jointPositions_g(:,1),'ydata',jointPositions_g(:,2),'zdata',jointPositions_g(:,3));
+    end
+    
+    if(lynx.showFrame)
+        subplot(1,2,2);
+        EExAxis = T0e_g(1:3,1,end)';
+        EEyAxis = T0e_g(1:3,2,end)';
+        EEzAxis = T0e_g(1:3,3,end)';
+        EExAxis = frameSize*EExAxis;
+        EEyAxis = frameSize*EEyAxis;
+        EEzAxis = frameSize*EEzAxis;
+        set(lynx.hEExAxis_g,'xdata',[T0e_g(1,4,end),T0e_g(1,4,end)+EExAxis(1)],'ydata',[T0e_g(2,4,end),T0e_g(2,4,end)+EExAxis(2)],'zdata',[T0e_g(3,4,end),T0e_g(3,4,end)+EExAxis(3)]);
+        set(lynx.hEEyAxis_g,'xdata',[T0e_g(1,4,end),T0e_g(1,4,end)+EEyAxis(1)],'ydata',[T0e_g(2,4,end),T0e_g(2,4,end)+EEyAxis(2)],'zdata',[T0e_g(3,4,end),T0e_g(3,4,end)+EEyAxis(3)]);
+        set(lynx.hEEzAxis_g,'xdata',[T0e_g(1,4,end),T0e_g(1,4,end)+EEzAxis(1)],'ydata',[T0e_g(2,4,end),T0e_g(2,4,end)+EEzAxis(2)],'zdata',[T0e_g(3,4,end),T0e_g(3,4,end)+EEzAxis(3)]);
+    end
+    drawnow
 end
 
 drawnow
