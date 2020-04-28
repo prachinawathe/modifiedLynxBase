@@ -13,18 +13,16 @@ axisWidth = 2;
 gripperLineWidth = 3;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-if lynx.pwm_check 
+if lynx.real_life_sim
     q_g = lynxPWM(lynx, q);
-end
-
-if lynx.has_gravity
-    tau = gravity_to_torque(q, lynx);
-    q_g = lynxAddGravity(lynx, q, tau)
-end
+    tau = gravity_to_torque(q_g, lynx);
+    q_g = lynxAddGravity(lynx, q_g, tau);
+    disp(q - q_g);
+end 
 
 calculateFK = str2func(['calculateFK_',pennkeys]);
 [jointPositions,T0e] = calculateFK(q);
-[jointPositions_g, T0e_g] = calculateFK(q); 
+[jointPositions_g, T0e_g] = calculateFK(q_g); 
 
 if(lynx.firstFrame) %We need to create the plots
     clf; %Clear any previous lynx plot

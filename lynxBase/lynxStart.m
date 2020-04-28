@@ -58,9 +58,8 @@ lynx.showJoints = true;
 lynx.showShadow = true;
 lynx.showGripper = false;
 lynx.hardware_on = false;
-lynx.pwm_check = true; 
-lynx.has_gravity = true; 
-lynx.dt = 1; 
+lynx.real_life_sim = true; 
+lynx.dt = 2; 
 
 % Home pose
 lynx.q = [0,0,0,0,0,0];

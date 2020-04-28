@@ -62,7 +62,7 @@ if nargin
     % Check that angular velocity limits are satisfied
     dt = toc(lynx.servoTimeStamp); %time since velocity limit was last checked
     lynx.servoTimeStamp = tic;
-    lynx.dt = dt; 
+%     lynx.dt = dt; 
 
     if dt > 0
         omega = abs((qNew - lynx.q)/dt);

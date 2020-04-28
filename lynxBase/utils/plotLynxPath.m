@@ -45,7 +45,7 @@ end
 pause(1.5)
 
 % Go through the steps
-for ii=1:size(path,1)-1
+for ii=1:2:size(path,1)-1
     morePath = (1-t)*path(ii,:) + t*path(ii+1,:);
     
     for jj = 1:size(morePath,1)
