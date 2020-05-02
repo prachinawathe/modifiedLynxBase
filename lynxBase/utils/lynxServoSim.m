@@ -30,5 +30,6 @@ function [ ] = lynxServoSim(th1, th2, th3, th4, th5, grip)
     % Changes the Lynx config to that specified by input and plots it there
     plotLynx(q);
 
+
 end
 

@@ -58,7 +58,7 @@ lynx.showJoints = true;
 lynx.showShadow = true;
 lynx.showGripper = false;
 lynx.hardware_on = false;
-lynx.real_life_sim = true; 
+lynx.real_life_sim = false; 
 lynx.dt = 2; 
 
 % Home pose
@@ -86,12 +86,14 @@ for j = 1:2:size(varargin,2)
 
             lynx.hardware_on = true;
             lynx.param = jsobj.(hardware_config);
+            
+        % Model of real hardware
         elseif strcmpi(hardware_config, 'Sim')
             
             lynx.hardware_on = false; 
             lynx.param = jsobj.('Simulation');
             lynx.robot = load('robot.mat');
-%             lynx.robot = lynx.robot.robot; 
+            lynx.real_life_sim = true; 
         else
             error('Invalid value for Hardware property');
         end
@@ -183,7 +185,7 @@ if lynx.hardware_on
     end
 
 % Initialize the plot if using simulation
-else
+elseif ~lynx.real_life_sim
     plotLynx(lynx.q);
 end
 

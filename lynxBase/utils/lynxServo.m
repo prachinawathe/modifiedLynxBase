@@ -1,4 +1,4 @@
-function [] = lynxServo(th1, th2, th3, th4, th5, th6)
+function [q_ideal, q_grav] = lynxServo(th1, th2, th3, th4, th5, th6)
 % Commands the Lynx to the angles defined by the input (in radians and mm)
 %
 % INPUTS:
@@ -82,10 +82,16 @@ if nargin
     end
 
     lynx.q = qNew;
-
+    
+    % Initialize these as empty so hardware and ideal-only sims still work
+    q_ideal = [];
+    q_grav = [];
+    
     % Send the angles to the Lynx
     if lynx.hardware_on
         lynxServoPhysical(lynx.q);
+    elseif lynx.real_life_sim
+        [q_ideal, q_grav] = lynxServoRealSim(lynx, lynx.q);
     else
         lynxServoSim(lynx.q);
     end
