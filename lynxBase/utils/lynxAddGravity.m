@@ -77,7 +77,7 @@ for i=2:4
     m = robot.link_weights;
     m(4) = sum(robot.link_weights(4:6));
     m = m(i:4);
-    theta = q(i:4) - q(i);
+    theta = q(i:4) - sum(q(2:i));
     
     I(i) = I(i) + robot.joint_masses(i:M) * r_sq; 
 %     I(i) = I(i) + robot.link_weights(i:m) * linksq; 
