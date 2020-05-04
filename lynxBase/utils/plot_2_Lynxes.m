@@ -70,8 +70,12 @@ if(lynx.firstFrame) %We need to create the plots
     
     
     % second subplot to show gravity:
-    subplot(1,2,2); 
-    title('Simulation with Gravitational Effects');
+    subplot(1,2,2);
+    if lynx.gravity_comp
+        title('Simulation with Gravity Compensation');  
+    else
+        title('Simulation with Gravitational Effects');
+    end
     xlabel('X (mm)')
     ylabel('Y (mm)')
     zlabel('Z (mm)')
