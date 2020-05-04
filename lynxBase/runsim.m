@@ -17,7 +17,7 @@ robot.mrgn = .1;
 
 start = [0,0,0,0,0,0];
 % target of [111.957896202101;-307.859940416223;315.460411913033]
-goal = [1,0,0,0,0,0];
+goal = [pi/3,-pi/6,pi/3,0,0,0];
 
 map = loadmap('emptyMap.txt');
 
@@ -44,7 +44,7 @@ profile off
 
 %% Plot the output
 
-[pos_ideal, pos_real] = plotLynxPath(map,path,10, plot_realistic, gravity_comp);
+[pos_ideal, pos_real] = plotLynxPath(map,path, 5, plot_realistic, gravity_comp);
 
 % Plot the different end effector trajectories
 if plot_realistic
@@ -72,10 +72,10 @@ if plot_realistic
    end
    
    % Add a little note about how far the realistic sim ends up at the end
-   pos_diff = pos_ideal(:,end) - pos_real(:,end);
+   pos_diff = pos_real(:,end) - pos_ideal(:,end);
    str = sprintf("Distance from ideal at goal:\n X = %.2f mm\n Y = %.2f mm\n Z = %.2f mm\n", ...
               pos_diff(1,1), pos_diff(2,1), pos_diff(3,1));
    annotation('textbox',[.6 .5 .5 .2],'String',str,'EdgeColor','none')
    hold off
 end
-profile viewer
+%profile viewer
