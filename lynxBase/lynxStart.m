@@ -32,6 +32,11 @@ function lynxStart(varargin)
 %
 %       'Gripper'       'on' | {'off'} Plot the gripper.  Cool, but is it
 %                       really helpful?
+%       'Realistic'     'on' | ('off')  Add in robot mass effects and some
+%                                       realistic servo errors.
+%       'Gravity_Comp'  'on' | ('off') When paired with 'Realistic' = on,
+%                       adds in compensation for the force of gravity. 
+%                       This means servo error is the only error. 
 %
 %  Updated for MEAM 520, 2018. May still have a few bugs, so please let us
 %  know if you find any bugs.  And better yet, suggest how to fix it =)
@@ -58,7 +63,8 @@ lynx.showJoints = true;
 lynx.showShadow = true;
 lynx.showGripper = false;
 lynx.hardware_on = false;
-lynx.real_life_sim = false; 
+lynx.real_life_sim = false;
+lynx.gravity_comp = false;
 lynx.dt = 2; 
 
 % Home pose
@@ -86,14 +92,6 @@ for j = 1:2:size(varargin,2)
 
             lynx.hardware_on = true;
             lynx.param = jsobj.(hardware_config);
-            
-        % Model of real hardware
-        elseif strcmpi(hardware_config, 'Sim')
-            
-            lynx.hardware_on = false; 
-            lynx.param = jsobj.('Simulation');
-            lynx.robot = load('robot.mat');
-            lynx.real_life_sim = true; 
         else
             error('Invalid value for Hardware property');
         end
@@ -137,7 +135,33 @@ for j = 1:2:size(varargin,2)
         else
             error('Invalid value for Gripper property');
         end
-
+        
+    % Model of real hardware
+    elseif strcmpi(varargin{1,j}, 'Realistic')
+        if strcmpi(varargin{1,j+1}, 'on')
+            lynx.hardware_on = false; 
+            lynx.robot = load('robot.mat');
+            lynx.real_life_sim = true;
+        elseif strcmpi(varargin{1,j+1}, 'off')
+           lynx.real_life_sim = false;
+        else
+            error('Invalid value for Realistic property');
+        end
+     
+    % Turn on gravity compensation
+    elseif strcmpi(varargin{1,j}, 'Gravity_Comp')
+        if strcmpi(varargin{1,j+1}, 'on')
+            lynx.gravity_comp = true;
+            
+            % This doesn't need to be an error but let the user know
+            if ~lynx.real_life_sim
+               disp("Warning: Gravity compensation doesn't do anything when Realistic is off!");
+            end
+        elseif strcmpi(varargin{1,j+1}, 'off')
+            lynx.gravity_comp = false;
+        else
+            error('Invalid value for Gravity_Comp property');
+        end
     end
 
 end

@@ -8,12 +8,12 @@ close all
 addpath('utils')
 
 %% Desired q configuration here
-q_pose = [1 -1 -1 0 0 0];
+q_pose = [1 1 0 0 0 0];
 
 %%
 % Start simuation, move to desired pose, 
 % and disply ideal sim alongside more realistic sim
-lynxStart('Hardware', 'Sim');
+lynxStart('Realistic', 'on', 'Gravity_Comp', 'off');
 [q_ideal, q_real] = lynxServo(q_pose);
 
 % Find the distance in X,Y, and Z in the two end effector positions

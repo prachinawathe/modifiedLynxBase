@@ -35,6 +35,13 @@ function [q, q_g] = lynxServoRealSim(lynx, th1, th2, th3, th4, th5, grip)
     % Calculate the torques that gravity imposes and then use the robot's
     % moment of inertia to convert back to joint configurations
     tau = gravity_to_torque(q_g, lynx);
+    
+    % This takes longer than it needs to, but is the theoreticlly correct
+    % way to compensate for gravity. It would be more meaningful if this
+    % were a real robot and not fake gravity being fake compensated.
+    if lynx.gravity_comp
+        tau = tau - gravity_to_torque(q_g,lynx);
+    end
     q_g = lynxAddGravity(lynx, q_g, tau);
     % Changes the Lynx config to that specified by input and plots it there
     plot_2_Lynxes(q, q_g);
