@@ -11,16 +11,19 @@ profile on
 % Define any additional parameters you may need here. Add the parameters to
 % the robot and map structures to pass them to astar or rrt.
 %
-robot = load('robot.mat')% robot
+robot = load('robot.mat');
 
 robot.mrgn = .1; 
 
 start = [0,0,0,0,0,0];
 % target of [111.957896202101;-307.859940416223;315.460411913033]
-goal = [-1.2220,0.6570,-1.1157,-0.0650,0,0];
+goal = [1,0,0,0,0,0];
 
-map = loadmap('map2.txt');
+map = loadmap('emptyMap.txt');
 
+% Realistic sim parameters
+plot_realistic = 1;
+gravity_comp = 0;
 
 %% Run the simulation
 
@@ -41,6 +44,38 @@ profile off
 
 %% Plot the output
 
-plotLynxPath(map,path,10);
+[pos_ideal, pos_real] = plotLynxPath(map,path,10, plot_realistic, gravity_comp);
 
+% Plot the different end effector trajectories
+if plot_realistic
+   figure()
+   plotmap(map);
+   xlabel('X (mm)')
+   ylabel('Y (mm)')
+   zlabel('Z (mm)')
+   set(gca,'xtick',-1000:100:1000, 'ytick',-1000:100:1000,'ztick',-1000:100:1000);
+   grid on
+   view(80,20)
+
+   axis equal vis3d
+   xlim([-200 400]);
+   ylim([-400 400]);
+   zlim([-200 500]);
+   plot3(pos_ideal(1,:), pos_ideal(2,:), pos_ideal(3,:));
+   hold on
+   plot3(pos_real(1,:), pos_real(2,:), pos_real(3,:));
+   title('End Effector Paths');
+   if gravity_comp
+       legend('Idealistic simulation', 'Simulation with gravity compensation');  
+   else
+       legend('Idealistic simulation', 'Simulation with gravity effects');
+   end
+   
+   % Add a little note about how far the realistic sim ends up at the end
+   pos_diff = pos_ideal(:,end) - pos_real(:,end);
+   str = sprintf("Distance from ideal at goal:\n X = %.2f mm\n Y = %.2f mm\n Z = %.2f mm\n", ...
+              pos_diff(1,1), pos_diff(2,1), pos_diff(3,1));
+   annotation('textbox',[.6 .5 .5 .2],'String',str,'EdgeColor','none')
+   hold off
+end
 profile viewer
