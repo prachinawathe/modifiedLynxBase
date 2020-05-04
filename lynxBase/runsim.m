@@ -65,24 +65,26 @@ if plot_realistic
    hold on
    plot3(pos_real(1,:), pos_real(2,:), pos_real(3,:));
    title('End Effector Paths');
+   plot3(pos_ideal(1,1), pos_ideal(2,1), pos_ideal(3,1), ...
+       'o','Color','k','MarkerSize',5,'MarkerFaceColor','#FFFFFF');
    plot3(pos_ideal(1,end), pos_ideal(2,end), pos_ideal(3,end), ...
        'o','Color','k','MarkerSize',5,'MarkerFaceColor','#000000');
    hold off
    if gravity_comp
        legend('Idealistic simulation', ...
-              'Simulation with gravity compensation', 'Goal position',...
-              'Location', 'northeast');  
+              'Simulation with gravity compensation',...
+              'Start', 'Goal', 'Location', 'northeast');  
    else
        legend('Idealistic simulation',...
-               'Simulation with gravity effects',  'Goal position',...
-               'Location', 'northeast');
+               'Simulation with gravity effects',...
+               'Start', 'Goal', 'Location', 'northeast');
    end
    
    % Add a little note about how far the realistic sim ends up at the end
    pos_diff = pos_real(:,end) - pos_ideal(:,end);
    str = sprintf("Distance from ideal\n at goal:\n X = %.2f mm\n Y = %.2f mm\n Z = %.2f mm\n", ...
               pos_diff(1,1), pos_diff(2,1), pos_diff(3,1));
-   annotation('textbox',[.75 .5 .2 .25],'String',str,'EdgeColor','k')
+   annotation('textbox',[.75 .4 .2 .25],'String',str,'EdgeColor','k')
 
 end
 %profile viewer
